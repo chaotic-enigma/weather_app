@@ -52,6 +52,9 @@ app.layout = html.Div([
 	dcc.Input(id='input', value='', type='text'),
 	#html.Hr(),
 	#html.Div(id='output-graph'),
+	html.Div([
+		html.H4('Show Local Weather')
+	], style={'textAlign' : 'center'}),
 	dcc.Graph(id='graph')
 ])
 
