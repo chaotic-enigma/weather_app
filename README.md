@@ -13,3 +13,5 @@ __Example Graph__
 __Finders Keepers (find destination)__
 
 ![destination](https://user-images.githubusercontent.com/26375997/39057001-cfa97152-44d5-11e8-996f-451f24d58a2f.png)
+
+Need to study Map Construction Algorithms to find the exact route of the destination.
