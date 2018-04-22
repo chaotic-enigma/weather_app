@@ -1,4 +1,5 @@
 import urllib2
+import auth
 import json
 import dash
 import dash_core_components as dcc
@@ -8,6 +9,8 @@ import plotly.graph_objs as go
 import simplejson as simplejs
 
 app = dash.Dash(__name__)
+
+key = auth.key
 
 with open('/home/sameer/Desktop/learn_plotly/token.txt','r') as tk:
 	access = tk.read()
@@ -20,6 +23,28 @@ def current_location(name):
 	lat = default_js['lat']
 	lon = default_js['lon']
 	return lat, lon
+
+def show_climate(name):
+	lat, lon = current_location(name)
+	url = 'http://api.openweathermap.org/data/2.5/weather?lat='+str(lat)+'&lon='+str(lon)+'&appid='+key
+	open_url = urllib2.urlopen(url)
+	open_w = json.load(open_url)
+
+	clouds = open_w['clouds']
+	cloudy = clouds.values()[0]
+
+	weather = open_w['weather'][0]['description']
+
+	temp = open_w['main']['temp']
+	temp_c = temp - 273
+	temp_c = round(temp_c, 2)
+
+	temp_f = temp_c * 9/5 + 32
+	temp_f = round(temp_f, 2)
+
+	ws = open_w['wind']['speed']
+
+	return weather, temp_c, ws
 
 app.layout = html.Div([
 	html.H3('Current location tracker'),
@@ -34,6 +59,7 @@ app.layout = html.Div([
 )
 def location_tracker(name):	
 	lat, lon = current_location(name)
+	weather_type, celsius, wind_speed = show_climate(name)
 	lat = str(lat)
 	lon = str(lon)
 	data = go.Data([
@@ -44,9 +70,9 @@ def location_tracker(name):
 		    marker=go.Marker(
 		        size=11
 		    ),
-		    #text=[str(name).title() + '  ' + str(weather_type) + '  ' + str(celsius) + ' C  ' + str(wind_speed) + ' mph'],
+		    text=[str(name).title() + '  ' + str(weather_type) + '  ' + str(celsius) + ' C  ' + str(wind_speed) + ' mph'],
 		    #hoverlabel=dict(bgcolor='rgba(188, 20, 26, 0.5)'),
-		    #hoverinfo='text'
+		    hoverinfo='text'
 		)
 	])
 
