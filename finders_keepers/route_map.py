@@ -14,7 +14,9 @@ with open('/home/sameer/Desktop/learn_plotly/token.txt','r') as tk:
 
 def get_directions(origin, destination):
 
-	key = 'AIzaSyCCYBjOBBRFAF8XaX3uLdoRY-LpnrRBnPc'
+	with open('google_key.txt', 'r') as gk:
+		key = gk.read()
+
 	endpoint = 'https://maps.googleapis.com/maps/api/directions/json?origin='+str(origin)+'&destination='+str(destination)+'&key'+str(key) 
 
 	response = urllib.urlopen(endpoint).read()
