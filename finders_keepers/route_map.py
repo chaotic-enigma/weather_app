@@ -64,40 +64,40 @@ def get_route(origin, destination):
 	try:
 		lats, lons = get_directions(origin, destination)
 		data = go.Data([
-			    go.Scattermapbox(
-			        lat=lats,
-			        lon=lons,
-			        mode='markers+lines',
-			        line=dict(width=2),
-			        marker=go.Marker(
-			            size=5,
-			        ),
-			        #text=[home, dest],
-			        #hoverlabel=dict(bgcolor='rgba(188, 20, 26, 0.5)'),
-			        #hoverinfo='text'
-			    )
-			])
+			go.Scattermapbox(
+				lat=lats,
+				lon=lons,
+				mode='markers+lines',
+				line=dict(width=2),
+				marker=go.Marker(
+					size=5,
+				),
+				#text=[home, dest],
+				#hoverlabel=dict(bgcolor='rgba(188, 20, 26, 0.5)'),
+				#hoverinfo='text'
+			)
+		])
 
 		layout = go.Layout(
 			#width=600,
 			height=700,
-		    autosize=True,
-		    showlegend=False,
-		    hovermode='closest',
-		    geo=dict(
-			    projection = dict(type="equirectangular"),
-		    ),
-		    mapbox=dict(
-		        accesstoken=access,
-		        bearing=1,
-		        center=dict(
-		           lat=int(str(lats[0]).split('.')[0]),
-		           lon=int(str(lons[0]).split('.')[0])
-		        ),
-		        pitch=0,
-		        zoom=3,
-		        style='light'
-		    ),
+		  autosize=True,
+		  showlegend=False,
+		  hovermode='closest',
+		  geo=dict(
+			  projection = dict(type="equirectangular"),
+		  ),
+		  mapbox=dict(
+		    accesstoken=access,
+		  	bearing=1,
+				center=dict(
+					lat=int(str(lats[0]).split('.')[0]),
+					lon=int(str(lons[0]).split('.')[0])
+				),
+				pitch=0,
+				zoom=3,
+				style='light'
+			),
 		)
 
 		return {'data' : data, 'layout' : layout}
