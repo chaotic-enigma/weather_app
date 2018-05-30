@@ -44,10 +44,10 @@ def get_directions(origin, destination):
 
 app.layout = html.Div([
 	html.H5('Home city: '),
-	dcc.Input(id='input1', value='', type='text'),
+	dcc.Input(id='input1', value='', type='text', placeholder='home city: '),
 	#html.Hr(),
 	html.H5('Destination city: '),
-	dcc.Input(id='input2', value='', type='text'),
+	dcc.Input(id='input2', value='', type='text', placeholder='destination: '),
 	#html.Hr(),
 	html.Div(id='output-graph'),
 	html.Div([
