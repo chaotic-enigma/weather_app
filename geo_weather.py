@@ -69,36 +69,36 @@ def update_location(name):
 		lat = str(lat)
 		lon = str(lon)
 		data = go.Data([
-		    go.Scattermapbox(
-		        lat=[lat],
-		        lon=[lon],
-		        mode='markers',
-		        marker=go.Marker(
-		            size=11
-		        ),
-		        text=[str(name).title() + '  ' + str(weather_type) + '  ' + str(celsius) + ' C  ' + str(wind_speed) + ' mph'],
-		        #hoverlabel=dict(bgcolor='rgba(188, 20, 26, 0.5)'),
-		        hoverinfo='text'
-		    )
+	    go.Scattermapbox(
+        lat=[lat],
+        lon=[lon],
+        mode='markers',
+        marker=go.Marker(
+          size=11
+        ),
+        text=[str(name).title() + '  ' + str(weather_type) + '  ' + str(celsius) + ' C  ' + str(wind_speed) + ' mph'],
+        #hoverlabel=dict(bgcolor='rgba(188, 20, 26, 0.5)'),
+        hoverinfo='text'
+	    )
 		])
 
 		layout = go.Layout(
 			#width=600,
 			height=620,
-		    autosize=True,
-		    showlegend=False,
-		    hovermode='closest',
-		    mapbox=dict(
-		        accesstoken=access,
-		        bearing=1,
-		        center=dict(
-		           lat=int(lat.split('.')[0]),
-		           lon=int(lon.split('.')[0])
-		        ),
-		        pitch=0,
-		        zoom=5,
-		        style='outdoors'
-		    ),
+	    autosize=True,
+	    showlegend=False,
+	    hovermode='closest',
+	    mapbox=dict(
+        accesstoken=access,
+        bearing=1,
+        center=dict(
+          lat=int(lat.split('.')[0]),
+          lon=int(lon.split('.')[0])
+        ),
+        pitch=0,
+        zoom=5,
+        style='outdoors'
+	    ),
 		)
 
 		return {'data' : data, 'layout' : layout}
