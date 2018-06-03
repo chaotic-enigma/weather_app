@@ -53,14 +53,13 @@ def get_stuff(name):
 	return cloudy, weather, temp_c, temp_f, ws
 
 app.layout = html.Div([
-	html.H5('Type city name: '),
-	dcc.Input(id='input', value=default_city, type='text'),
 	#html.Hr(),
 	#html.Div(id='output-graph'),
 	html.Div([
-		html.H4('Global Weather')
+		html.H4('Global Weather'),
+		dcc.Input(id='input', value=default_city, type='text', placeholder='City name: ', size=40),
+		dcc.Graph(id='graph')
 	], style={'textAlign' : 'center'}),
-	dcc.Graph(id='graph')
 ])
 
 @app.callback(
