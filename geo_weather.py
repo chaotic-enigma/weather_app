@@ -15,6 +15,11 @@ key = auth.key
 with open('/home/sameer/Desktop/learn_plotly/token.txt','r') as tk:
 	access = tk.read()
 
+default = 'http://ip-api.com/json'
+open_d = urllib2.urlopen(default)
+default_js = json.load(open_d)
+default_city = default_js['city']
+
 def get_location(name):
 	name = name.lower()
 	url = 'http://api.openweathermap.org/data/2.5/weather?q='+str(name)+'&appid='+key
@@ -49,7 +54,7 @@ def get_stuff(name):
 
 app.layout = html.Div([
 	html.H5('Type city name: '),
-	dcc.Input(id='input', value='', type='text'),
+	dcc.Input(id='input', value=default_city, type='text'),
 	#html.Hr(),
 	#html.Div(id='output-graph'),
 	html.Div([
@@ -97,7 +102,7 @@ def update_location(name):
         ),
         pitch=0,
         zoom=5,
-        style='outdoors'
+        style='light'
 	    ),
 		)
 
