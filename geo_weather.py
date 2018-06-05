@@ -109,6 +109,9 @@ def update_location(name):
 
 	except Exception as e:
 		print(str(e))
+		return html.Div([
+			html.P('There is no access, sorry')
+		])
 
 external_css = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 for css in external_css:
