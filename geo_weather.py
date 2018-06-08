@@ -1,12 +1,12 @@
 import json
-import urllib2
 import dash
+import auth
+import urllib2
+import simplejson as simplejs
+import plotly.graph_objs as go
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
-import plotly.graph_objs as go
-import simplejson as simplejs
-import auth
 
 app = dash.Dash(__name__)
 
@@ -36,21 +36,41 @@ def get_stuff(name):
 	open_url = urllib2.urlopen(url)
 	open_w = json.load(open_url)
 
-	clouds = open_w['clouds']
-	cloudy = clouds.values()[0]
-
 	weather = open_w['weather'][0]['description']
 
 	temp = open_w['main']['temp']
 	temp_c = temp - 273
 	temp_c = round(temp_c, 2)
 
-	temp_f = temp_c * 9/5 + 32
-	temp_f = round(temp_f, 2)
-
 	ws = open_w['wind']['speed']
 
-	return cloudy, weather, temp_c, temp_f, ws
+	return weather, temp_c, ws
+
+def climate_info(name):
+	url = 'http://api.openweathermap.org/data/2.5/weather?q='+str(name)+'&appid='+key
+	open_url = urllib2.urlopen(url)
+	open_w = json.load(open_url)
+
+	_, temp_c, ws = get_stuff(name)
+	temp_f = temp_c * 9/5 + 32
+
+	hum = open_w['main']['humidity']
+	press = open_w['main']['pressure'] / 100.0
+
+	all_clouds = open_w['clouds']['all']
+
+	temp_dict = {}
+	temp_dict['temp_C'] = round(temp_c, 2)
+	temp_dict['temp_F'] = round(temp_f, 2)
+	temp_dict['humidity'] = hum
+	temp_dict['pressure'] = press
+	temp_dict['windspeed(mph)'] = ws
+	temp_dict['clouds'] = all_clouds
+
+	x_details = temp_dict.keys()
+	y_details = temp_dict.values()
+
+	return x_details, y_details
 
 app.layout = html.Div([
 	#html.Hr(),
@@ -58,17 +78,24 @@ app.layout = html.Div([
 	html.Div([
 		html.H4('Global Weather'),
 		dcc.Input(id='input', value=default_city, type='text', placeholder='City name: ', size=40),
-		dcc.Graph(id='graph')
+		html.Div([
+			html.Div([
+				dcc.Graph(id='geo_graph'),
+			], className='eight columns'),
+			html.Div([
+				dcc.Graph(id='weather-graph')
+			], className='four columns')
+		], className='row'),
 	], style={'textAlign' : 'center'}),
 ])
 
 @app.callback(
-	Output('graph', 'figure'),
+	Output('geo_graph', 'figure'),
 	[Input('input', 'value')]
 )
 def update_location(name):
 	try:
-		total_clouds, weather_type, celsius, farenheit, wind_speed = get_stuff(name)
+		weather_type, celsius, wind_speed = get_stuff(name)
 		lat, lon = get_location(name)
 		lat = str(lat)
 		lon = str(lon)
@@ -88,7 +115,7 @@ def update_location(name):
 
 		layout = go.Layout(
 			#width=600,
-			height=620,
+			height=580,
 	    autosize=True,
 	    showlegend=False,
 	    hovermode='closest',
@@ -112,6 +139,30 @@ def update_location(name):
 		return html.Div([
 			html.P('There is no access, sorry')
 		])
+
+@app.callback(
+	Output('weather-graph', 'figure'),
+	[Input('input', 'value')]
+)
+def weather_graph(name):
+	try:
+		x_details, y_details = climate_info(name)
+
+		graphs = []
+		graphs.append(
+			go.Scatter(
+				x=x_details,
+				y=y_details,
+				name='Description',
+				mode='markers+lines'
+			)
+		)
+
+		layout={'title' : str(name).title()}
+
+		return {'data' : graphs, 'layout' : layout}
+	except Exception as e:
+		print(str(e))
 
 external_css = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 for css in external_css:
