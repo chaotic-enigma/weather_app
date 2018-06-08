@@ -101,7 +101,7 @@ def update_location(name):
         ),
         pitch=0,
         zoom=5,
-        style='light'
+        style='basic'
 	    ),
 		)
 
