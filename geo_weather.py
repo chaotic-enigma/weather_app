@@ -127,7 +127,7 @@ def update_location(name):
           lon=int(lon.split('.')[0])
         ),
         pitch=0,
-        zoom=5,
+        zoom=6,
         style='basic'
 	    ),
 		)
