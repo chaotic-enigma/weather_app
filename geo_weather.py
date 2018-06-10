@@ -64,7 +64,7 @@ def climate_info(name):
 	temp_dict['temp_F'] = round(temp_f, 2)
 	temp_dict['humidity'] = hum
 	temp_dict['pressure'] = press
-	temp_dict['windspeed(mph)'] = ws
+	temp_dict['windspeed-(mph)'] = ws
 	temp_dict['clouds'] = all_clouds
 
 	x_details = temp_dict.keys()
