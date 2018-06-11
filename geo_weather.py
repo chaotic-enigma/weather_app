@@ -60,8 +60,8 @@ def climate_info(name):
 	all_clouds = open_w['clouds']['all']
 
 	temp_dict = {}
-	temp_dict['temp_C'] = round(temp_c, 2)
-	temp_dict['temp_F'] = round(temp_f, 2)
+	temp_dict['celsius'] = round(temp_c, 2)
+	temp_dict['farenheit'] = round(temp_f, 2)
 	temp_dict['humidity'] = hum
 	temp_dict['pressure'] = press
 	temp_dict['windspeed-(mph)'] = ws
