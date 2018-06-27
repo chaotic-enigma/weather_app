@@ -2,3 +2,4 @@ auth.py
 auth.pyc
 weather_key.txt
 google_key.txt
+token.txt
