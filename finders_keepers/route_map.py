@@ -9,7 +9,7 @@ import plotly.graph_objs as go
 
 app = dash.Dash(__name__)
 
-with open('/home/sameer/Desktop/learn_plotly/token.txt','r') as tk:
+with open('token.txt','r') as tk:
 	access = tk.read()
 
 def get_directions(origin, destination):

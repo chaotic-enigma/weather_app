@@ -12,7 +12,7 @@ app = dash.Dash(__name__)
 
 key = auth.key
 
-with open('/home/sameer/Desktop/learn_plotly/token.txt','r') as tk:
+with open('token.txt','r') as tk:
 	access = tk.read()
 
 default = 'http://ip-api.com/json'
