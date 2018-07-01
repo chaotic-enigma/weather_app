@@ -2,7 +2,7 @@
 
 Weather app using python, dash and plotly
 
-Used API calls and keys to make this app sustain. Basically shows the temperature readings (in celsius), windspeed reading (in mph)  when hovered on the city which is given as input.
+Used API's to make this app sustain. Basically shows the temperature readings (in celsius), windspeed reading (in mph)  when hovered on the city which is given as input.
 
 Mainly uses plotly scattermapbox to get the layout of the map and plots the city according to its latitude and longitude.
 
