@@ -17,7 +17,7 @@ def get_directions(origin, destination):
 	with open('google_key.txt', 'r') as gk:
 		key = gk.read()
 
-	endpoint = 'https://maps.googleapis.com/maps/api/directions/json?origin='+str(origin)+'&destination='+str(destination)+'&key'+str(key) 
+	endpoint = 'https://maps.googleapis.com/maps/api/directions/json?origin='+str(origin)+'&destination='+str(destination)+'&key='+str(key) 
 
 	response = urllib.urlopen(endpoint).read()
 	directions = json.loads(response)
